@@ -1,10 +1,14 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 
 export function CreateAlarmButton(): React.JSX.Element {
   const size = 40;
+  const navigation = useNavigation();
+
   return (
-    <View
+    <TouchableOpacity
+      onPress={() => navigation.navigate('Create New Alarm')}
       style={{
         width: size,
         height: size,
@@ -25,6 +29,6 @@ export function CreateAlarmButton(): React.JSX.Element {
           paddingBottom: 4,
         }}
       >+</Text>
-    </View>
+    </TouchableOpacity>
   );
 }

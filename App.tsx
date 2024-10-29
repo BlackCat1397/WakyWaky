@@ -6,29 +6,32 @@
  */
 
 import React from 'react';
-import {
-  SafeAreaView,
-} from 'react-native';
 
-import {
-  AlarmsList,
-} from './src/AlarmsList';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import {
-  CreateAlarmButton,
-} from './src/CreateAlarmButton';
+import './gesture-handler';
+import { HomeScreen } from './src/HomeScreen';
+import { CreateAlarmScreen } from './src/CreateAlarmScreen';
+import { NavigationContainer } from '@react-navigation/native';
 
+
+export type RootStackParamList = {
+  Home: undefined;
+  'Create New Alarm': undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App(): React.JSX.Element {
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-      }}
-    >
-      <AlarmsList />
-      <CreateAlarmButton />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Home"
+      >
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Create New Alarm" component={CreateAlarmScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
