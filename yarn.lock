@@ -5622,6 +5622,11 @@ react-native-screens@^3.35.0:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
+react-native-wheel-scrollview-picker@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-wheel-scrollview-picker/-/react-native-wheel-scrollview-picker-2.0.6.tgz#dec34282c18a7e520608d45a0107318edf37a36a"
+  integrity sha512-rODqVqabFeiNZCUPw0fkFN6iYyGGkQ3GnXvkVeNWYZI+XUg+a9FDKhHQh9tqOhDIquzhdjhqPak7qEJw199Zwg==
+
 react-native@0.76.0:
   version "0.76.0"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.76.0.tgz#fd624e9da2271327079b792190800e364e1ad6a7"
