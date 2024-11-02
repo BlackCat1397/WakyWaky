@@ -19,13 +19,13 @@ export function AlarmPreview({
         paddingHorizontal: 16,
       }}
     >
-      <Text>9:14</Text>
+      <Text>{alarmInfo.time.hours}:{alarmInfo.time.minutes}</Text>
       <View
         style={{
           width: 10,
           height: 10,
           borderWidth: 1,
-          backgroundColor: true ? '#2a3' : '#a32',
+          backgroundColor: alarmInfo.isActive ? '#2a3' : '#a32',
         }}
       />
     </View>

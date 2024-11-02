@@ -1,21 +1,18 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FlatList } from 'react-native';
 import { AlarmPreview } from './AlarmPreview';
 
-import { createId } from '@paralleldrive/cuid2';
-
-
-const mockData: Array<AlarmEntry> = [{
-  _id: createId(),
-}, {
-  _id: createId(),
-}];
+import { useAlarmsStore } from './stores/alarmsStore';
 
 export function AlarmsList(): React.JSX.Element {
+  const alarms = useAlarmsStore(state => state.alarms);
+
+  const renderItem = useCallback(({ item }: { item: AlarmEntry }) => (<AlarmPreview key={item._id} alarmInfo={item}/>), []);
+
   return (
     <FlatList
-      data={mockData}
-      renderItem={({ item }) => <AlarmPreview key={item._id} alarmInfo={item}/>}
+      data={alarms}
+      renderItem={renderItem}
     />
   );
 }
