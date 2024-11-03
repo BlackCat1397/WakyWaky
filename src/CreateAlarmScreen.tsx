@@ -5,7 +5,7 @@ import { createId } from '@paralleldrive/cuid2';
 import ScrollPicker from 'react-native-wheel-scrollview-picker';
 
 import { useWeekdays } from './utils/useWeekdays';
-import { useAlarmsStore } from './stores/alarmsStore';
+import { addAlarm, useAlarmsStore } from './stores/alarmsStore';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -17,8 +17,6 @@ export function CreateAlarmScreen(): React.JSX.Element {
 
   const hours = (new Array(24)).fill(0).map((_, i) => (i + 1));
   const minutes = (new Array(60)).fill(0).map((_, i) => (i));
-
-  const addAlarm = useAlarmsStore(state => state.addAlarm);
 
   const navigation = useNavigation();
 

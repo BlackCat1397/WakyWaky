@@ -27,13 +27,16 @@ const zustandStorage: PersistStorage<AlarmsState> = {
   },
 };
 
-export const useAlarmsStore = create<AlarmsState & Action>()(persist(
+export const useAlarmsStore = create<AlarmsState>()(persist(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   (set) => ({
     alarms: [],
-    addAlarm: (alarm: AlarmEntry) => set((state) => ({ alarms: [...state.alarms, alarm] })),
   }),
   {
     name: 'alarms-storage',
     storage: zustandStorage,
   }
 ));
+
+export const addAlarm = (alarm: AlarmEntry) =>
+  useAlarmsStore.setState((state) => ({ alarms: [...state.alarms, alarm] }));
