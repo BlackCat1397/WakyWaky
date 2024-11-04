@@ -40,3 +40,13 @@ export const useAlarmsStore = create<AlarmsState>()(persist(
 
 export const addAlarm = (alarm: AlarmEntry) =>
   useAlarmsStore.setState((state) => ({ alarms: [...state.alarms, alarm] }));
+
+export const toggleAlarm = (alarmId: string) =>
+  useAlarmsStore.setState((state) => ({
+    alarms: state.alarms.map((a) => (
+      a._id === alarmId ? {
+        ...a,
+        isActive: !a.isActive,
+      } : a
+    )),
+  }));
