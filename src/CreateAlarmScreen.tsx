@@ -5,8 +5,8 @@ import { createId } from '@paralleldrive/cuid2';
 import ScrollPicker from 'react-native-wheel-scrollview-picker';
 
 import { useWeekdays } from './utils/useWeekdays';
-import { addAlarm, useAlarmsStore } from './stores/alarmsStore';
 import { useNavigation } from '@react-navigation/native';
+import { AlarmManager } from './api/AlarmManager/AlarmManager';
 
 
 export function CreateAlarmScreen(): React.JSX.Element {
@@ -31,7 +31,7 @@ export function CreateAlarmScreen(): React.JSX.Element {
       },
     };
 
-    addAlarm(alarmToSave);
+    AlarmManager.createAlarm(alarmToSave);
     navigation.goBack();
   };
 

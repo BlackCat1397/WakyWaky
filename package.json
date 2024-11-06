@@ -42,6 +42,14 @@
     "react-test-renderer": "18.3.1",
     "typescript": "5.0.4"
   },
+  "codegenConfig": {
+    "name": "NativeAlarmManagerSpec",
+    "type": "modules",
+    "jsSrcsDir": "specs",
+    "android": {
+      "javaPackageName": "com.nativeModules"
+    }
+  },
   "engines": {
     "node": ">=18"
   },
