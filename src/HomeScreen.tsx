@@ -1,18 +1,24 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 
 import { AlarmsList } from './AlarmsList';
 import { CreateAlarmButton } from './CreateAlarmButton';
+import { Colors } from './constants/Colors';
 
 export function HomeScreen(): React.JSX.Element {
   return (
     <SafeAreaView
-      style={{
-        flex: 1,
-      }}
+      style={styles.container}
     >
       <AlarmsList />
       <CreateAlarmButton />
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.background,
+  },
+});

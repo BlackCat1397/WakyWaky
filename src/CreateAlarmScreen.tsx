@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, SafeAreaView, Text, View, StyleSheet } from 'react-native';
+import { Button, SafeAreaView, View, StyleSheet } from 'react-native';
 
 import { createId } from '@paralleldrive/cuid2';
 import ScrollPicker from 'react-native-wheel-scrollview-picker';
@@ -7,6 +7,7 @@ import ScrollPicker from 'react-native-wheel-scrollview-picker';
 import { useWeekdays } from './utils/useWeekdays';
 import { useNavigation } from '@react-navigation/native';
 import { AlarmManager } from './api/AlarmManager/AlarmManager';
+import { Colors } from './constants/Colors';
 
 
 export function CreateAlarmScreen(): React.JSX.Element {
@@ -41,15 +42,12 @@ export function CreateAlarmScreen(): React.JSX.Element {
       <View style={styles.scrollPickerContainer}>
         <ScrollPicker
           dataSource={hours}
-          renderItem={(data, _) => {
-            return (
-              <Text>{data}</Text>
-            );
-          }}
           selectedIndex={hourIndex}
           onValueChange={(data, selectedIndex) => {
             setHourIndex(selectedIndex);
           }}
+          itemTextStyle={styles.number}
+          activeItemTextStyle={styles.number}
           wrapperHeight={180}
           wrapperBackground="#fff"
           itemHeight={60}
@@ -58,15 +56,12 @@ export function CreateAlarmScreen(): React.JSX.Element {
         />
         <ScrollPicker
           dataSource={minutes}
-          renderItem={(data, _) => {
-            return (
-              <Text>{data}</Text>
-            );
-          }}
           selectedIndex={minuteIndex}
           onValueChange={(data, selectedIndex) => {
             setMinuteIndex(selectedIndex);
           }}
+          itemTextStyle={styles.number}
+          activeItemTextStyle={styles.number}
           wrapperHeight={180}
           wrapperBackground="#fff"
           itemHeight={60}
@@ -79,7 +74,7 @@ export function CreateAlarmScreen(): React.JSX.Element {
           <Button
             key={d.title}
             title={d.title}
-            color={d.isActive ? '#0a6' : '#666'}
+            color={d.isActive ? Colors.activated : Colors.inactive}
             onPress={() => handleDayPress(index)}
           />
         ))}
@@ -112,5 +107,8 @@ const styles = StyleSheet.create({
   },
   saveButtonContainer: {
     marginBottom: 40,
+  },
+  number: {
+    fontSize: 24,
   },
 });
