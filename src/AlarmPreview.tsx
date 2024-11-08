@@ -14,12 +14,21 @@ export function AlarmPreview({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.timeText}>{alarmInfo.time.hours.toString().padStart(2, '0')}:{alarmInfo.time.minutes.toString().padStart(2, '0')}</Text>
-      <TouchableOpacity
-        style={[styles.alarmIndicator, alarmInfo.isActive && styles.activeAlarmIndicator ]}
-        hitSlop={16}
-        onPress={handleActivnessToggle}
-      />
+      <View style={styles.timeContainer}>
+        <TouchableOpacity
+          style={[styles.alarmIndicator, alarmInfo.isActive && styles.activeAlarmIndicator ]}
+          hitSlop={16}
+          onPress={handleActivnessToggle}
+        />
+        <Text style={styles.timeText}>{alarmInfo.time.hours.toString().padStart(2, '0')}:{alarmInfo.time.minutes.toString().padStart(2, '0')}</Text>
+      </View>
+      <View style={styles.daysContainer}>
+        { alarmInfo.days.filter(day => day.isActive).map(day => (
+          <Text style={styles.dayText} key={day.title}>
+            { day.title }
+          </Text>
+        )) }
+      </View>
     </View>
   );
 }
@@ -29,16 +38,31 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     height: 64,
-    alignItems: 'center',
-    flexDirection: 'row',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
+    flexDirection: 'column',
     marginVertical: 8,
+    paddingTop: 11,
+    paddingBottom: 10,
     marginHorizontal: 12,
     paddingHorizontal: 16,
     borderColor: Colors.dim,
     backgroundColor: Colors.cardBackground,
   },
+  timeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  daysContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  dayText: {
+    fontSize: 13,
+    marginRight: 4,
+  },
   timeText: {
+    marginLeft: 8,
     color: Colors.text,
     fontSize: 16,
     fontWeight: 'bold',
