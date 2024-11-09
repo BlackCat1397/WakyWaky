@@ -1,20 +1,29 @@
 import React, { useState } from 'react';
-import { Button, SafeAreaView, View, StyleSheet } from 'react-native';
+import { Button, SafeAreaView, View, StyleSheet, Text } from 'react-native';
 
 import { createId } from '@paralleldrive/cuid2';
 import ScrollPicker from 'react-native-wheel-scrollview-picker';
 
 import { useWeekdays } from './utils/useWeekdays';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { AlarmManager } from './api/AlarmManager/AlarmManager';
 import { Colors } from './constants/Colors';
+import { RootStackParamList } from '../App';
+import { useAlarmsStore } from './stores/alarmsStore';
 
+type Props = NativeStackScreenProps<RootStackParamList, 'Create New Alarm'>;
 
-export function CreateAlarmScreen(): React.JSX.Element {
-  const { days, handleDayPress } = useWeekdays();
+export function CreateAlarmScreen({
+  route,
+}: Props): React.JSX.Element {
+  const alarmId = route.params?.alarmId;
+  const alarm = useAlarmsStore((state) => state.alarms.find(({ _id }) => _id === alarmId));
 
-  const [hourIndex, setHourIndex] = useState(1);
-  const [minuteIndex, setMinuteIndex] = useState(1);
+  const { days, handleDayPress } = useWeekdays(alarm?.days);
+
+  const [hourIndex, setHourIndex] = useState(alarm ? alarm.time.hours - 1 : 1);
+  const [minuteIndex, setMinuteIndex] = useState(alarm ? alarm.time.minutes : 1);
 
   const hours = (new Array(24)).fill(0).map((_, i) => (i + 1));
   const minutes = (new Array(60)).fill(0).map((_, i) => (i));
@@ -23,16 +32,16 @@ export function CreateAlarmScreen(): React.JSX.Element {
 
   const handleSavePress = () => {
     const alarmToSave: AlarmEntry = {
-      _id: createId(),
+      _id: alarmId ?? createId(),
       days,
-      isActive: true,
+      isActive: alarm ? alarm.isActive : true,
       time: {
         hours: hours[hourIndex],
         minutes: minutes[minuteIndex],
       },
     };
 
-    AlarmManager.createAlarm(alarmToSave);
+    AlarmManager.setAlarm(alarmToSave);
     navigation.goBack();
   };
 

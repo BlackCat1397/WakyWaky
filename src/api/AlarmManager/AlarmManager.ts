@@ -1,9 +1,9 @@
 import NativeAlarmManager from '../../../specs/NativeAlarmManager';
-import { addAlarm } from '../../stores/alarmsStore';
+import { setAlarm } from '../../stores/alarmsStore';
 
 export const AlarmManager = {
-  createAlarm: (alarm: AlarmEntry) => {
-    NativeAlarmManager.createAlarm(alarm._id, alarm.time);
-    addAlarm(alarm);
+  setAlarm: (alarm: AlarmEntry) => {
+    // NativeAlarmManager.createAlarm(alarm._id, alarm.time);
+    setAlarm(alarm);
   },
 };

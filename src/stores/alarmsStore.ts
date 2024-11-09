@@ -5,10 +5,6 @@ interface AlarmsState {
   alarms: Array<AlarmEntry>;
 }
 
-interface Action {
-  addAlarm: (alarm: AlarmEntry) => void,
-}
-
 import { PersistStorage } from 'zustand/middleware';
 import { MMKV } from 'react-native-mmkv';
 
@@ -38,8 +34,19 @@ export const useAlarmsStore = create<AlarmsState>()(persist(
   }
 ));
 
-export const addAlarm = (alarm: AlarmEntry) =>
-  useAlarmsStore.setState((state) => ({ alarms: [...state.alarms, alarm] }));
+export const setAlarm = (alarm: AlarmEntry) =>
+  useAlarmsStore.setState((state) => {
+    const alarmIndex = state.alarms.findIndex(({ _id }) => _id === alarm._id);
+    if (alarmIndex !== -1) {
+      return ({
+        alarms: state.alarms.map((value) => (
+          value._id === alarm._id ? alarm : value
+        )),
+      });
+    } else {
+      return ({ alarms: [...state.alarms, alarm] });
+    }
+  });
 
 export const toggleAlarm = (alarmId: string) =>
   useAlarmsStore.setState((state) => ({

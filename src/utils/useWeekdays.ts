@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { WEEK } from '../constants';
 
-export const useWeekdays = () => {
-  const [days, setDays] = useState<Array<Day>>(WEEK);
+export const useWeekdays = (defaultDays?: Array<Day>) => {
+  const [days, setDays] = useState<Array<Day>>(defaultDays ?? WEEK);
 
   const handleDayPress = (dayIndex: number) => {
     const updatedDays = days.map((day, index) => {

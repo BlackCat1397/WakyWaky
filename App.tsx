@@ -17,7 +17,9 @@ import { NavigationContainer } from '@react-navigation/native';
 
 export type RootStackParamList = {
   Home: undefined;
-  'Create New Alarm': undefined;
+  'Create New Alarm': {
+    alarmId?: string,
+  };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

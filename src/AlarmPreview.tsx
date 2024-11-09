@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { toggleAlarm } from './stores/alarmsStore';
 import { Colors } from './constants/Colors';
+import { useNavigation } from '@react-navigation/native';
 
 export function AlarmPreview({
   alarmInfo,
@@ -12,8 +13,20 @@ export function AlarmPreview({
     toggleAlarm(alarmInfo._id);
   }, [alarmInfo._id]);
 
+  const navigation = useNavigation();
+
+  const handleAlarmPress = useCallback(() => {
+    navigation.navigate('Create New Alarm', {
+      alarmId: alarmInfo._id,
+    });
+  }, [navigation, alarmInfo._id]);
+
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={handleAlarmPress}
+    >
       <View style={styles.timeContainer}>
         <TouchableOpacity
           style={[styles.alarmIndicator, alarmInfo.isActive && styles.activeAlarmIndicator ]}
@@ -29,7 +42,7 @@ export function AlarmPreview({
           </Text>
         )) }
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
